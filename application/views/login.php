@@ -46,7 +46,7 @@
                             </div>
                         </form>
                         <div class="social-login">
-                            <a href="register.php" class="signup-image-link">Create an account!</a>
+                            <a href="<?php echo site_url('login/register') ?>" class="signup-image-link">Create an account!</a>
                         </div>
                     </div>
                 </div>

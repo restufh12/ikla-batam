@@ -30,5 +30,5 @@
       </div>
     </div>
   </div>
-  <div class="masonry-large-block__loader"><a href="event.php">Back to event</a></div>	
+  <div class="masonry-large-block__loader"><a href="<?php echo site_url('event') ?>">Back to event</a></div>	
 </div>

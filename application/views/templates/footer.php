@@ -16,7 +16,7 @@
         <div class="footer-default__group-title">help center</div>
         <ul class="footer-default__list">
           <li class="footer-default__list-item">
-            <a class="footer-default__list-link" href="faq.php">FAQs</a>
+            <a class="footer-default__list-link" href="<?php echo site_url('pages/faq') ?>">FAQs</a>
           </li>
         </ul>
       </div>
@@ -24,16 +24,16 @@
         <div class="footer-default__group-title">quick links</div>
         <ul class="footer-default__list">
           <li class="footer-default__list-item">
-            <a class="footer-default__list-link" href="about.php">About</a>
+            <a class="footer-default__list-link" href="<?php echo site_url('about') ?>">About</a>
           </li>
           <li class="footer-default__list-item">
-            <a class="footer-default__list-link" href="event.php">Event</a>
+            <a class="footer-default__list-link" href="<?php echo site_url('event') ?>">Event</a>
           </li>
           <li class="footer-default__list-item">
-            <a class="footer-default__list-link" href="member.php">Member</a>
+            <a class="footer-default__list-link" href="<?php echo site_url('member') ?>">Member</a>
           </li>
           <li class="footer-default__list-item">
-            <a class="footer-default__list-link" href="contact.php">Contact</a>
+            <a class="footer-default__list-link" href="<?php echo site_url('contact') ?>">Contact</a>
           </li>
         </ul>
       </div>

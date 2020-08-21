@@ -100,4 +100,20 @@ class CI_Controller {
 		return self::$instance;
 	}
 
+	public function cek_login()
+	{
+	    $this->load->library('session');
+	    if(empty($this->session->userdata('RunNo'))){
+			redirect('auth/login');
+	    }
+	}
+
+	public function cek_login_admin()
+	{
+	    $this->load->library('session');
+	    if(empty($this->session->userdata('RunNo')) OR $this->session->userdata('Level')!="Admin"){
+	        redirect('auth/login');
+	    }
+	} 
+
 }

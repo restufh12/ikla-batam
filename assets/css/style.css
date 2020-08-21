@@ -1,0 +1,17 @@
+.menuactive{
+	border-bottom: 2px solid #8c3618;
+}
+.menuactiveright{
+	color: #e62626 !important;
+}
+@media only screen and (max-width: 600px) {
+  .logo {
+		font-size: 20px;
+	}
+}
+.input-margin-bottom{
+	margin-bottom: 23px;
+}
+.error-field{
+	border-bottom: 1px solid red !important;
+}

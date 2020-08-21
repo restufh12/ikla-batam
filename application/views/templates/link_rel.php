@@ -20,6 +20,7 @@
   <!--Theme CSS-->
   <link href="<?= base_url()?>assets/css/theme.css" rel="stylesheet">
   <link href="<?= base_url()?>assets/css/responsive.css" rel="stylesheet">
+  <link href="<?= base_url()?>assets/css/style.css" rel="stylesheet">
   <!--Favicons-->
   <link href="<?= base_url()?>assets/favicons/favicon.png" rel="apple-touch-icon" sizes="180x180">
   <link href="<?= base_url()?>assets/favicons/favicon.png" rel="icon" sizes="32x32" type="image/png">
@@ -30,4 +31,6 @@
   <meta content="#da532c" name="msapplication-TileColor">
   <meta content="<?= base_url()?>assets/favicons/browserconfig.xml" name="msapplication-config">
   <meta content="#ffffff" name="theme-color">
+  <!-- jquery toast -->
+  <link href="<?= base_url()?>node_modules/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
 </head>

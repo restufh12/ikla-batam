@@ -14,6 +14,7 @@ class Event extends CI_Controller {
     }
 
     public function myevent() {
+        $this->cek_login();
         $data = array('container' => 'my-event');
 		$this->load->view('templates\templates', $data);
     }

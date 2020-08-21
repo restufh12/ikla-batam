@@ -35,3 +35,54 @@
 <script src="<?= base_url()?>assets/js/revolution/extensions/revolution.extension.video.min.js"></script>
 <!--Theme JS-->
 <script src="<?= base_url()?>assets/js/theme.js"></script>
+<!-- Jquery Toast -->
+<script src="<?= base_url()?>node_modules/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+
+
+<script type="text/javascript" >
+if (typeof $ == 'undefined') { var $ = jQuery; }
+$(document).ready(function() {
+
+	// ALERT NEW MEMBER -------------------------------------------------------------------------------
+    let msgnewmember = "<?= $this->session->flashdata('msgnewmember')?>";
+	if(msgnewmember=="Registrasi Sukses"){
+	  $.toast({
+	      heading: 'Success',
+	      text: 'Registrasi member berhasil, data anda terlebih dahulu akan di verifikasi oleh admin.',
+	      showHideTransition: 'slide',
+	      icon: 'success',
+	      position: 'bottom-right',
+	      hideAfter: 10000
+	  })
+	}
+	// --------------------------------------------------------------------------------------------------
+
+	// ALERT LOGIN SUCCESS
+	let loginsuccess = "<?= $this->session->flashdata('loginsuccess')?>";
+	if(loginsuccess=="1"){
+	  $.toast({
+	      heading: 'Success',
+	      text: 'Login Berhasil',
+	      showHideTransition: 'slide',
+	      icon: 'success',
+	      position: 'bottom-right',
+	      hideAfter: 5000
+	  })
+	}	
+
+	// ALERT LOGOUT SUCCESS
+	let logoutsuccess = "<?= $this->session->flashdata('logoutsuccess')?>";
+	console.log(logoutsuccess)
+	if(logoutsuccess=="1"){
+	  $.toast({
+	      heading: 'Success',
+	      text: 'Logout Berhasil',
+	      showHideTransition: 'slide',
+	      icon: 'success',
+	      position: 'bottom-right',
+	      hideAfter: 5000
+	  })
+	}
+});
+</script>
+

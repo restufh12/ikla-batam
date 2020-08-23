@@ -14,6 +14,13 @@
     
 <div class="masonry-large-block">
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <a href="<?php echo site_url('event/buatevent') ?>" class="btn btn-primary" role="button">Buat Event Baru</a>
+      </div>
+    </div>
+    <br>
+    
     <div class="masonry-large-block__grid row">
       <div class="masonry-large-block__item col-12 col-sm-6 col-lg-4 col-xl-4">
         <a class="news-masonry-item" href="<?php echo site_url('event/detailevent') ?>">

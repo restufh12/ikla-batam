@@ -197,7 +197,10 @@ body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;
-  background: #cf1b1c;
+  background: linear-gradient(to right, #5b211f , #9e202c, #5b211f); /* Standard syntax */
+  background: -webkit-linear-gradient(left, #5b211f , #9e202c, #5b211f); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #5b211f, #9e202c, #5b211f); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #5b211f, #9e202c, #5b211f); /* For Firefox 3.6 to 15 */
   font-weight: 400;
   font-family: Poppins; }
 
@@ -275,7 +278,7 @@ figure {
 
 .form-submit {
   display: inline-block;
-  background: #cf1b1c;
+  background: #5b211f ;
   color: #fff;
   border-bottom: none;
   width: auto;
@@ -288,7 +291,7 @@ figure {
   margin-top: 25px;
   cursor: pointer; }
   .form-submit:hover {
-    background: #4292dc; }
+    background: #9e202c; }
 
 #signin {
   margin-top: 16px; }

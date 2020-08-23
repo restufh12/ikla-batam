@@ -114,6 +114,6 @@ class CI_Controller {
 	    if(empty($this->session->userdata('RunNo')) OR $this->session->userdata('Level')!="Admin"){
 	        redirect('auth/login');
 	    }
-	} 
+	}
 
 }

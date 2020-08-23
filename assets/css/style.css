@@ -1,8 +1,9 @@
 .menuactive{
-	border-bottom: 2px solid #8c3618;
+	border-bottom: 2px solid #a47e59;
+	color: #a47e59;
 }
 .menuactiveright{
-	color: #e62626 !important;
+	color: #a47e59 !important;
 }
 @media only screen and (max-width: 600px) {
   .logo {

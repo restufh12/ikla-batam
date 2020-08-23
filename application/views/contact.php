@@ -1,5 +1,4 @@
-
-<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/home-banner4.jpg)">
+<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-contact.jpg); background-repeat: no-repeat; background-size: 100%;">
   <div class="container">
     <div class="heading-default__title">Contact Us</div>
     <ul class="heading-default__breadcrumbs">

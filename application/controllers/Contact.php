@@ -5,6 +5,6 @@ class Contact extends CI_Controller {
 	public function index()
 	{
 		$data = array('container' => 'contact');
-		$this->load->view('templates\templates', $data);
+		$this->load->view('templates/templates', $data);
 	}
 }

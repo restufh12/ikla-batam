@@ -50,49 +50,46 @@
     <?php if($this->session->userdata('LoginYN')!="1"): ?>
     <!-- if No Login -->
     <div class="menu-panel__locales" style="margin-bottom: 40px !important;">
-      <div class="menu-panel__locale link"><a href="<?php echo site_url('auth/register') ?>">Register</a></div>
-      <div class="menu-panel__locale link"><a href="<?php echo site_url('auth/login') ?>">Login</a></div>
+      <div class="menu-panel__locale link"><a class="menu-panel__locale link" href="<?php echo site_url('auth/register') ?>">Register</a></div>
+      <div class="menu-panel__locale link"><a class="menu-panel__locale link" href="<?php echo site_url('auth/login') ?>">Login</a></div>
     </div>
     <?php endif; ?>
 
-    <?php if($this->session->userdata('LoginYN')=="1" AND $this->session->userdata('Level')=="Admin"): ?>
-    <!-- If Login Admin -->
+    <?php if($this->session->userdata('LoginYN')=="1"): ?>
     <div class="menu-panel__locales" style="margin-bottom: 40px !important;">
-      <div class="menu-panel__locale link">Hallo, Administrator</div><br>
-    </div>
-    <?php endif; ?>
-
-    <?php if($this->session->userdata('LoginYN')=="1" AND $this->session->userdata('Level')!="Admin"): ?>
-    <!-- if Login member -->
-    <div class="menu-panel__locales" style="margin-bottom: 40px !important;">
-      <div class="menu-panel__locale link">Hallo, <?= $this->session->userdata('Nama')?></div><br>
+      <div class="menu-panel__locale link">Hallo, <?= ($this->session->userdata('Level')=="Admin"?"Administrator" : $this->session->userdata('Nama'))?></div><br>
     </div>
     <?php endif; ?>
 
     <div class="menu-panel__menu">
-      <div class="menu-panel__menu-item">
-            <a class="menu-panel__menu-link collapsed" data-toggle="collapse" href="#submenu2">Account</a>
-            <div class="menu-panel__menu-list collapse" id="submenu2">
-              <div class="menu-panel__bottom-submenu">
+      
+	  <?php if($this->session->userdata('LoginYN')=="1"): ?>
+	  <!-- If Login Admin -->
+	  <div class="menu-panel__menu-item">
+		<a class="menu-panel__menu-link collapsed" data-toggle="collapse" href="#submenu2">Account</a>
+		<div class="menu-panel__menu-list collapse" id="submenu2">
+		  <div class="menu-panel__bottom-submenu">
 
-                <?php if($this->session->userdata('LoginYN')=="1" AND $this->session->userdata('Level')=="Admin"): ?>
-                <!-- If Login Admin -->
-                <div class="menu-panel__submenu-item">
-                  <a class="menu-panel__submenu-link" href="<?php echo site_url('admin') ?>">Dashboard Member</a>
-                </div>
-                <!-- endif -->
-                <?php endif; ?>
-                
-                <div class="menu-panel__submenu-item">
-                  <a class="menu-panel__submenu-link" href="<?php echo site_url('member/updateprofile') ?>">Update My Profile</a>
-                </div>
-                <div class="menu-panel__submenu-item">
-                  <a class="menu-panel__submenu-link" href="<?php echo site_url('event/myevent') ?>">My Event</a>
-                </div>
-              </div>
-            </div>
-          </div>
-      <div class="menu-panel__menu-item">
+        <?php if($this->session->userdata('Level')=="Admin"): ?>
+  			<div class="menu-panel__submenu-item">
+  			  <a class="menu-panel__submenu-link" href="<?php echo site_url('admin') ?>">Dashboard Member</a>
+  			</div>
+        <?php endif; ?>
+
+  			<div class="menu-panel__submenu-item">
+  			  <a class="menu-panel__submenu-link" href="<?php echo site_url('member/updateprofile') ?>">Update My Profile</a>
+  			</div>
+  			<div class="menu-panel__submenu-item">
+  			  <a class="menu-panel__submenu-link" href="<?php echo site_url('event/myevent') ?>">My Event</a>
+  			</div>
+
+		  </div>
+		</div>
+	  </div>
+	  <!-- endif -->
+	  <?php endif; ?>
+		
+	  <div class="menu-panel__menu-item">
       <a class="menu-panel__menu-link <?= ($container=='home'?'menuactiveright':'')?>" data-toggle="collapse" href="<?php echo site_url() ?>">Home</a>
       </div>
       <div class="menu-panel__menu-item">
@@ -110,9 +107,14 @@
     </div>
     <div class="menu-panel__footer">
       <br><br>
+		
+	  <?php if($this->session->userdata('LoginYN')=="1"): ?>
+	  <!-- If Login Admin -->	
       <div class="menu-panel__locales">
-        <a href="<?php echo site_url('auth/logout') ?>"><div class="menu-panel__locale link"><i class="icofont-sign-out"></i> Logout</div></a>
+        <a class="menu-panel__locale link" href="<?php echo site_url('auth/logout') ?>"><div class="menu-panel__locale link"><i class="icofont-sign-out"></i> Logout</div></a>
       </div> 
+    <?php endif; ?>		
+		
       <div class="menu-panel__bottom">
       <div class="menu-panel__copyright">&copy; 2020
         <strong>IKLABATAM.</strong>

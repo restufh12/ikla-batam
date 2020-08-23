@@ -15,7 +15,7 @@ class Auth extends CI_Controller {
     
     public function register(){
         $data = array('container' => 'register');
-		$this->load->view('templates\templates', $data);
+		$this->load->view('templates/templates', $data);
     }
 
     public function proses_login()
@@ -33,14 +33,21 @@ class Auth extends CI_Controller {
             $Username = htmlspecialchars($this->input->post('Username'));
             $Password = htmlspecialchars($this->input->post('Password'));
 
+
             // CEK KE DATABASE BERDASARKAN NO HP
-            $cek_login = $this->authmodel->cek_login($Username); 
+            $cek_login = $this->authmodel->cek_login($Username);
                 
             if($cek_login == FALSE)
             {
                 $this->session->set_flashdata('loginerrors', "Username yang Anda masukan salah.");
                 redirect('auth/login');
             } else {
+                if($cek_login->VerifyYN=="0"){
+                    $this->session->set_flashdata('loginerrors', "Akun ada belum diverifikasi,<br> silahkan hubungi admin.");
+                    redirect('auth/login');
+                    die();
+                }
+
                 if(password_verify($Password, $cek_login->Password)){
                     // if the username and password is a match
                     $this->session->set_userdata('RunNo', $cek_login->RunNo);

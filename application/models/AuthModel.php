@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
  
-class AuthModel extends CI_Model{
+class Authmodel extends CI_Model{
 
 	public function register($table, $data)
 	{

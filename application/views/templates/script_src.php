@@ -37,11 +37,33 @@
 <script src="<?= base_url()?>assets/js/theme.js"></script>
 <!-- Jquery Toast -->
 <script src="<?= base_url()?>node_modules/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+<!-- datetimepicker -->
+<script src="<?= base_url()?>node_modules/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="<?= base_url()?>node_modules/datetimepicker/js/locales/bootstrap-datetimepicker.id.js"></script>
+<!-- Datatables -->
+<script src="<?= base_url()?>vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url()?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Jquery Confirm -->
+<script src="<?= base_url()?>vendor/jquery-confirm/jquery-confirm.min.js"></script>
+
+
 
 
 <script type="text/javascript" >
 if (typeof $ == 'undefined') { var $ = jQuery; }
 $(document).ready(function() {
+
+	$('#Waktu').datetimepicker({
+        language:  'id',
+        weekStart: 1,
+		autoclose: 1,
+		todayHighlight: 0,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0,
+		format : 'hh:ii:ss'
+    });
 
 	// ALERT NEW MEMBER -------------------------------------------------------------------------------
     let msgnewmember = "<?= $this->session->flashdata('msgnewmember')?>";
@@ -72,7 +94,6 @@ $(document).ready(function() {
 
 	// ALERT LOGOUT SUCCESS
 	let logoutsuccess = "<?= $this->session->flashdata('logoutsuccess')?>";
-	console.log(logoutsuccess)
 	if(logoutsuccess=="1"){
 	  $.toast({
 	      heading: 'Success',
@@ -83,6 +104,273 @@ $(document).ready(function() {
 	      hideAfter: 5000
 	  })
 	}
+
+	// ALERT NEW EVENT -------------------------------------------------------------------------------
+  let msgnewevent = "<?= $this->session->flashdata('msgnewevent')?>";
+	if(msgnewevent=="1"){
+	  $.toast({
+	      heading: 'Success',
+	      text: 'Event Berhasil Dibuat.',
+	      showHideTransition: 'slide',
+	      icon: 'success',
+	      position: 'bottom-right',
+	      hideAfter: 7000
+	  });
+	} else if(msgnewevent=="0"){
+		$.toast({
+      heading: 'Error',
+      text: "Event Gagal Dibuat.",
+      showHideTransition: 'slide',
+      icon: 'error',
+      position: 'top-right',
+      hideAfter: 3000
+  	});
+	}
+	// --------------------------------------------------------------------------------------------------
+
+	// Datatables Member
+	$.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
+	{
+	    return {
+	        "iStart": oSettings._iDisplayStart,
+	        "iEnd": oSettings.fnDisplayEnd(),
+	        "iLength": oSettings._iDisplayLength,
+	        "iTotal": oSettings.fnRecordsTotal(),
+	        "iFilteredTotal": oSettings.fnRecordsDisplay(),
+	        "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+	        "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+	    };
+	};
+ 
+	var tablememberlisting = $("#member-listing").DataTable({
+	  initComplete: function() {
+	    var api = this.api();
+	    $('#mytable_filter input')
+	        .off('.DT')
+	        .on('input.DT', function() {
+	            api.search(this.value).draw();
+	    });
+	  },
+	  oLanguage: {
+	    sProcessing: "loading..."
+	  },
+	  processing: true,
+	  serverSide: true,
+	  ajax: {"url": "<?php echo base_url().'admin/get_member_json'?>", "type": "POST"},
+		columns: [
+		    {"data": "RunNo"},
+		    {"data": "Nama"},
+		    {"data": "Username"},
+		    {"data": "Email"},
+		    {"data": "VerifyYN"},
+		    {"data": "view",className: "text-right"}
+		],
+	  order: [[1, 'asc']],
+    rowCallback: function(row, data, iDisplayIndex) {
+    		if(data['VerifyYN'] == '1'){
+		      $(row).find('td:eq(4)').html('Verified');
+		      $(row).find('td:eq(4)').css('color', '#008000');
+		    } else {
+		      $(row).find('td:eq(4)').html('Not Verified');
+		      $(row).find('td:eq(4)').css('color', '#ff0000');	
+		    }
+
+        var info = this.fnPagingInfo();
+        var page = info.iPage;
+        var length = info.iLength;
+        $('td:eq(0)', row).html();
+    }
+	});
+	// Increment
+	tablememberlisting.on( 'order.dt search.dt', function () {
+      tablememberlisting.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+          cell.innerHTML = i+1;
+      } );
+  } ).draw();
+
+	// VEIFIKASI MEMBER
+	$('#member-listing').on('click','.verifikasi_record',function(){
+		var RunNo = $(this).data('runno');
+		$.ajax({
+			url  : "<?= base_url().'admin/get_member_detail'?>",
+			type : "POST",
+			data : {RunNo : RunNo},
+			dataType : "html",
+			success : function(data){
+				$('.modal-body-member-detail').html(data);
+        // show modal
+        $('#modalMemberDetail').appendTo("body").modal('show');
+			}
+		})
+	});
+
+	$('#btnVerifikasiMember').on('click', function(){
+		var RunNo = $("#RunNoVerifyMember").val();
+		$.ajax({
+			url  : "<?= base_url().'admin/verify_member'?>",
+			type : "POST",
+			data : {RunNo : RunNo},
+			success : function(data){
+        $('#modalMemberDetail').modal('hide');
+        tablememberlisting.ajax.reload();
+				if(data=="1"){
+					$.toast({
+				      heading: 'Success',
+				      text: 'Verifikasi Member Berhasil',
+				      showHideTransition: 'slide',
+				      icon: 'success',
+				      position: 'bottom-right',
+				      hideAfter: 5000
+				  });
+				} else {
+					$.toast({
+			      heading: 'Error',
+			      text: "Gagal Verifikasi.",
+			      showHideTransition: 'slide',
+			      icon: 'error',
+			      position: 'bottom-right',
+			      hideAfter: 3000
+			  	});
+				}
+			}
+		});
+	});
+
+	$('#member-listing').on('click','.lihat_member',function(){
+		var RunNo = $(this).data('runno');
+		$.ajax({
+			url  : "<?= base_url().'admin/get_member_detail'?>",
+			type : "POST",
+			data : {RunNo : RunNo},
+			dataType : "html",
+			success : function(data){
+				$("#btnVerifikasiMember").hide();
+				$('.modal-body-member-detail').html(data);
+        // show modal
+        $('#modalMemberDetail').appendTo("body").modal('show');
+			}
+		})
+	});
+
+  // DELETE MEMBER
+  $('#member-listing').on('click','.delete_member',function(){
+  	var RunNo = $(this).data('runno');
+		$.confirm({
+		    title: 'Hapus Member',
+		    content: 'Anda yakin akan menghapus data member?',
+		    type: 'red',
+		    typeAnimated: true,
+		    buttons: {
+		        tryAgain: {
+		            text: 'Hapus',
+		            btnClass: 'btn-red',
+		            action: function(){
+		            	$.ajax({
+										url  : "<?= base_url().'admin/hapus_member'?>",
+										type : "POST",
+										data : {RunNo : RunNo},
+										success : function(data){
+							        tablememberlisting.ajax.reload();
+											if(data=="1"){
+												$.toast({
+											      heading: 'Success',
+											      text: 'Hapus Member Berhasil',
+											      showHideTransition: 'slide',
+											      icon: 'success',
+											      position: 'bottom-right',
+											      hideAfter: 5000
+											  });
+											} else {
+												$.toast({
+										      heading: 'Error',
+										      text: "Gagal Hapus Member",
+										      showHideTransition: 'slide',
+										      icon: 'error',
+										      position: 'bottom-right',
+										      hideAfter: 3000
+										  	});
+											}
+										}
+									});
+		            }
+		        },
+		        close: {
+		            text: 'Tidak',
+		            action: function(){
+		            }
+		        }
+		    }
+		});
+	});
+
+
+  // MENU EVENT SCROLL
+  let thisMenu = "<?=$container?>";
+  if(thisMenu=="event"){
+    var getEvents = function(page){
+        $("#loader").show();
+        $.ajax({
+            url:"<?php echo base_url() ?>event/fetch_event",
+            type:'GET',
+            data: {page:page}
+        }).done(function(response){
+            $("#load_data").append(response);
+            $("#loader").hide();
+            $('#load_more').data('val', ($('#load_more').data('val')+1));
+            if(response==""){
+            	$("#load_more").hide();
+            }
+        });
+    };
+  	getEvents(0);
+
+    $("#load_more").click(function(e){
+        e.preventDefault();
+        var page = $(this).data('val');
+        getEvents(page);
+    });
+  }
+
+  // MENU MEMBER SCROLL
+  if(thisMenu=="member"){
+    var getMembers = function(page){
+        $("#loader_member").show();
+        $.ajax({
+            url:"<?php echo base_url() ?>member/fetch_member",
+            type:'GET',
+            data: {page:page}
+        }).done(function(response){
+            $("#load_data_member").append(response);
+            $("#loader_member").hide();
+            $('#load_more_member').data('val', ($('#load_more_member').data('val')+1));
+            if(response==""){
+            	$("#load_more_member").hide();
+            }
+        });
+    };
+  	getMembers(0);
+
+    $("#load_more_member").click(function(e){
+        e.preventDefault();
+        var page = $(this).data('val');
+        getMembers(page);
+    });
+  }
+
 });
+
+// SHOW DETAIL MEMBER FROM HOME
+function fnShowDetailMemberFromHome(RunNo){
+	$.ajax({
+		url  : "<?= base_url().'home/get_member_detail_home'?>",
+		type : "POST",
+		data : {RunNo : RunNo},
+		dataType : "html",
+		success : function(data){
+			$('.modal-body-member-detail-home').html(data);
+      $('#modalMemberDetailHome').appendTo("body").modal('show');
+		}
+	});
+}
 </script>
 

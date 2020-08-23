@@ -8,7 +8,7 @@
           Kepulauan Riau - 29425
         </p>
         <p>
-          <a href="mailto:info@iklabatam.com">info@iklabatam.com</a>
+          <a href="mailto:info@iklabatam.com">admin@iklabatam.com</a>
         </p>
         <p>+0085 346 2188</p>
       </div>
@@ -55,9 +55,6 @@
       <div class="footer-default__copyright">&copy; 2020
         <strong>IKLABATAM.</strong>
         All Rights Reserved.
-      </div>
-      <div class="footer-default__author">Powered by
-        <a href="https://generasicoding.com">Generasi Coding</a>
       </div>
     </div>
   </div>

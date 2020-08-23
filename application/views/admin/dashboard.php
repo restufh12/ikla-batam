@@ -1,3 +1,11 @@
+<style type="text/css">
+	main{
+		background: #FFFFFF !important;
+	}
+	.display-none{
+		display: none;
+	}
+</style>
 <div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/home-banner5.jpg)">
   <div class="container">
 	<div class="heading-default__title">Dashboard Member</div>
@@ -6,7 +14,6 @@
 		<a class="heading-default__breadcrumb-link" href="#">Home</a>
 	  </li>
 	  <li class="heading-default__breadcrumb-item">Account</li>
-	  <li class="heading-default__breadcrumb-item">Dashboard</li>
 	</ul>
 	<br>  
   </div>
@@ -14,46 +21,45 @@
 <div class="contact-block">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-lg-12">
-        <table class="table">
-			<thead>
-				<tr>
-					<th><b>No</b></th>
-					<th><b>Name</b></th>
-					<th><b>Username</b></th>
-					<th><b>Email</b></th>
-					<th><b>Status</b></th>
-					<th><b>Action</b></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Bagus</td>
-					<td>+6282246261134</td>
-					<td>bagus@mail.com</td>
-					<td>Verified</td>
-					<td>Verification</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Bagus</td>
-					<td>+6282246261134</td>
-					<td>bagus@mail.com</td>
-					<td>Verified</td>
-					<td>Verification</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Bagus</td>
-					<td>+6282246261134</td>
-					<td>bagus@mail.com</td>
-					<td>Not Verified</td>
-					<td>Verification</td>
-				</tr>
-			</tbody>
-		</table>
+      <div class="col-12 col-lg-12 table-responsive">
+      	<table id="member-listing" class="table progress-table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>NO</th>
+                    <th>NAMA</th>
+                    <th>USERNAME</th>
+                    <th>EMAIL</th>
+                    <th>STATUS</th>
+                    <th>AKSI</th>
+                </tr>
+            </thead>
+        </table>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Detail Member -->
+<div class="modal fade" id="modalMemberDetail">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Member</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body-member-detail">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="btnVerifikasiMember">Verifikasi</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
     </div>
   </div>
 </div>

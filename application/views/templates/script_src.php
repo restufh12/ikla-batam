@@ -37,14 +37,19 @@
 <script src="<?= base_url()?>assets/js/theme.js"></script>
 <!-- Jquery Toast -->
 <script src="<?= base_url()?>node_modules/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
-<!-- datetimepicker -->
-<script src="<?= base_url()?>node_modules/datetimepicker/js/bootstrap-datetimepicker.js"></script>
-<script src="<?= base_url()?>node_modules/datetimepicker/js/locales/bootstrap-datetimepicker.id.js"></script>
 <!-- Datatables -->
 <script src="<?= base_url()?>vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url()?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- Jquery Confirm -->
 <script src="<?= base_url()?>vendor/jquery-confirm/jquery-confirm.min.js"></script>
+<!-- Jquery- FileInput -->
+<script src="<?= base_url()?>vendor/jquery-fileinput/js/plugins/piexif.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/js/plugins/sortable.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/js/locales/id.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/js/locales/es.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/themes/fas/theme.js" type="text/javascript"></script>
+<script src="<?= base_url()?>vendor/jquery-fileinput/themes/explorer-fas/theme.js" type="text/javascript"></script>
 
 
 
@@ -52,18 +57,18 @@
 <script type="text/javascript" >
 if (typeof $ == 'undefined') { var $ = jQuery; }
 $(document).ready(function() {
+	const thisMenu = "<?=$container?>";
 
-	$('#Waktu').datetimepicker({
-        language:  'id',
-        weekStart: 1,
-		autoclose: 1,
-		todayHighlight: 0,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0,
-		format : 'hh:ii:ss'
-    });
+  if(thisMenu=="create-event"){
+  	$("#Lampiran").fileinput({
+  			initialPreviewAsData: true,
+        showUpload: false,
+        dropZoneEnabled: true,
+        maxFileCount: 1,
+        mainClass: "input-group-md",
+        'theme': 'explorer-fas',
+    }); 
+  }
 
 	// ALERT NEW MEMBER -------------------------------------------------------------------------------
     let msgnewmember = "<?= $this->session->flashdata('msgnewmember')?>";
@@ -105,28 +110,53 @@ $(document).ready(function() {
 	  })
 	}
 
-	// ALERT NEW EVENT -------------------------------------------------------------------------------
-  let msgnewevent = "<?= $this->session->flashdata('msgnewevent')?>";
-	if(msgnewevent=="1"){
-	  $.toast({
-	      heading: 'Success',
-	      text: 'Event Berhasil Dibuat.',
+	if(thisMenu=="my-event"){
+		// ALERT NEW EVENT -------------------------------------------------------------------------------
+	  let msgnewevent = "<?= $this->session->flashdata('msgnewevent')?>";
+		if(msgnewevent=="1"){
+		  $.toast({
+		      heading: 'Success',
+		      text: 'Event Berhasil Dibuat.',
+		      showHideTransition: 'slide',
+		      icon: 'success',
+		      position: 'bottom-right',
+		      hideAfter: 7000
+		  });
+		} else if(msgnewevent=="0"){
+			$.toast({
+	      heading: 'Error',
+	      text: "Event Gagal Dibuat.",
 	      showHideTransition: 'slide',
-	      icon: 'success',
-	      position: 'bottom-right',
-	      hideAfter: 7000
-	  });
-	} else if(msgnewevent=="0"){
-		$.toast({
-      heading: 'Error',
-      text: "Event Gagal Dibuat.",
-      showHideTransition: 'slide',
-      icon: 'error',
-      position: 'top-right',
-      hideAfter: 3000
-  	});
+	      icon: 'error',
+	      position: 'top-right',
+	      hideAfter: 3000
+	  	});
+		}
+		// --------------------------------------------------------------------------------------------------
+
+		// ALERT UPDATE EVENT -------------------------------------------------------------------------------
+		let msgupdateevent = "<?= $this->session->flashdata('msgupdateevent')?>";
+		if(msgupdateevent=="1"){
+		  $.toast({
+		      heading: 'Success',
+		      text: 'Event Berhasil Diupdate.',
+		      showHideTransition: 'slide',
+		      icon: 'success',
+		      position: 'bottom-right',
+		      hideAfter: 7000
+		  });
+		} else if(msgupdateevent=="0"){
+			$.toast({
+	      heading: 'Error',
+	      text: "Event Gagal Diupdate.",
+	      showHideTransition: 'slide',
+	      icon: 'error',
+	      position: 'top-right',
+	      hideAfter: 3000
+	  	});
+		}
+		// ALERT UPDATE EVENT -------------------------------------------------------------------------------
 	}
-	// --------------------------------------------------------------------------------------------------
 
 	// Datatables Member
 	$.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
@@ -305,7 +335,6 @@ $(document).ready(function() {
 
 
   // MENU EVENT SCROLL
-  let thisMenu = "<?=$container?>";
   if(thisMenu=="event"){
     var getEvents = function(page){
         $("#loader").show();
@@ -357,6 +386,34 @@ $(document).ready(function() {
     });
   }
 
+  // MENU EVENT MEMBER
+  if(thisMenu=="my-event"){
+    window.getEventsMember = function(page){
+        $("#loader_event_member").show();
+        $.ajax({
+            url:"<?php echo base_url() ?>event/fetch_event_member",
+            type:'GET',
+            data: {page:page}
+        }).done(function(response){
+        		if(response==""){
+        			$("#load_more_event_member").hide();
+        		}
+            $("#load_data_event_member").append(response);
+            $("#loader_event_member").hide();
+            $('#load_more_event_member').data('val', ($('#load_more_event_member').data('val')+1));
+        });
+    };
+  	getEventsMember(0);
+
+    $("#load_more_event_member").click(function(e){
+        e.preventDefault();
+        var page = $(this).data('val');
+        getEventsMember(page);
+    });
+  }
+
+  console.log(thisMenu)
+
 });
 
 // SHOW DETAIL MEMBER FROM HOME
@@ -370,6 +427,61 @@ function fnShowDetailMemberFromHome(RunNo){
 			$('.modal-body-member-detail-home').html(data);
       $('#modalMemberDetailHome').appendTo("body").modal('show');
 		}
+	});
+}
+
+// DELETE EVENT 
+function fnDeleteEvent(RunNo){
+	$.confirm({
+	    title: 'Hapus Event',
+	    content: 'Anda yakin akan menghapus event?',
+	    type: 'red',
+	    typeAnimated: true,
+	    buttons: {
+	        tryAgain: {
+	            text: 'Hapus',
+	            btnClass: 'btn-red',
+	            action: function(){
+	            	$.ajax({
+									url  : "<?= base_url().'event/hapus_event'?>",
+									type : "POST",
+									data : {RunNo : RunNo},
+									success : function(data){
+										if(data=="1"){
+											$("#load_data_event_member").html("");
+											$('#load_more_event_member').data('val', 0);
+											getEventsMember(0);
+											$.toast({
+										      heading: 'Success',
+										      text: 'Hapus Member Berhasil',
+										      showHideTransition: 'slide',
+										      icon: 'success',
+										      position: 'bottom-right',
+										      hideAfter: 5000
+										  });
+										} else {
+											$("#load_data_event_member").html("");
+											$('#load_more_event_member').data('val', 0);
+											getEventsMember(0);
+											$.toast({
+									      heading: 'Error',
+									      text: "Gagal Hapus Member",
+									      showHideTransition: 'slide',
+									      icon: 'error',
+									      position: 'bottom-right',
+									      hideAfter: 3000
+									  	});
+										}
+									}
+								});
+	            }
+	        },
+	        close: {
+	            text: 'Tidak',
+	            action: function(){
+	            }
+	        }
+	    }
 	});
 }
 </script>

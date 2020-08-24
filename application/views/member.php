@@ -23,7 +23,7 @@
         <div class="container-fluid">
           <div id="load_data_member" class="row" style="height: 100% !important;text-align: center;"></div>
           <div style="text-align: center;margin-top: 30px;">
-            <button class="btn btn-info" id="load_more_member" data-val="0">Load more
+            <button class="btn btn-info" id="load_more_member" data-val="0">Load More
             <img style="display: none;padding-left: 10px;" id="loader_member" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
             </button>
           </div>

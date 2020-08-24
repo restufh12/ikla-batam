@@ -27,7 +27,7 @@ class Member extends CI_Controller {
             <div class="team-block__slide" style="padding: 30px;margin: 0 auto;">
 				<div class="team-block__image-wrapper">
 					<div style="height: 230px; width: 230px; overflow: hidden; ">
-					<img style="border-radius: 20px;" alt="" src="'.$vMemberPhotoUrl.'"/>
+					<img style="border-radius: 50%; height: 230px; width: 230px;" alt="" src="'.$vMemberPhotoUrl.'"/>
 				</div>
 				<div class="team-block__hover">
 				  <div class="socials">
@@ -38,7 +38,8 @@ class Member extends CI_Controller {
 				</div>
 				</div>
 				<div class="team-block__person-name">'.$row->Nama.'</div>
-				<div class="team-block__person-role">'.$row->Pekerjaan.'</div>
+				<div class="team-block__person-role">'.$row->Suku.' | '.$row->Negara.'</div>
+				<div class="team-block__person-role">'.$row->Pekerjaan.' | '.$row->Pendidikan.'</div>
 			</div>';
         }
         echo $output;

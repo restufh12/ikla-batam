@@ -33,12 +33,13 @@
   <meta content="#ffffff" name="theme-color">
   <!-- jquery toast -->
   <link href="<?= base_url()?>node_modules/jquery-toast-plugin/dist/jquery.toast.min.css" rel="stylesheet">
-  <!-- datetimepicker -->
-  <link href="<?= base_url()?>node_modules/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
   <!-- Datatables -->
   <link rel="stylesheet" href="<?= base_url()?>vendor/datatables/dataTables.bootstrap4.min.css">
   <!-- font-awesome -->
   <link href="<?= base_url()?>vendor/font-awesome/css/all.css" rel="stylesheet">
   <!-- Jquery Confirm -->
   <link href="<?= base_url()?>vendor/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+  <!-- Jquery FileInput -->
+  <link href="<?= base_url()?>vendor/jquery-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+  <link href="<?= base_url()?>vendor/jquery-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
 </head>

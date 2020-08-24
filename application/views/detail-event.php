@@ -1,4 +1,4 @@
-<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/home-banner1.jpg)">
+<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-event.jpg); background-repeat: no-repeat; background-size: 100%;">
   <div class="container">
     <div class="heading-default__title">Event Detail</div>
     <ul class="heading-default__breadcrumbs">

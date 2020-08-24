@@ -16,3 +16,6 @@
 .error-field{
 	border-bottom: 1px solid red !important;
 }
+.file-input{
+	margin: 20px 0px !important;
+}

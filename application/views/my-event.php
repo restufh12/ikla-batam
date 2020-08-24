@@ -1,4 +1,4 @@
-<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/home-banner1.jpg)">
+<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-event.jpg); background-repeat: no-repeat; background-size: 100%;">
   <div class="container">
     <div class="heading-default__title">My Event</div>
     <ul class="heading-default__breadcrumbs">
@@ -16,79 +16,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 text-center">
-        <a href="<?php echo site_url('event/buatevent') ?>" class="btn btn-primary" role="button">Buat Event Baru</a>
+        <a href="<?php echo site_url('event/buatevent') ?>" class="btn btn-success" role="button">Buat Event Baru</a>
       </div>
     </div>
     <br>
     
-    <div class="masonry-large-block__grid row">
-      <div class="masonry-large-block__item col-12 col-sm-6 col-lg-4 col-xl-4">
-        <a class="news-masonry-item" href="<?php echo site_url('event/detailevent') ?>">
-          <div class="news-masonry-item__content">
-            <div class="news-masonry-item__header">
-              <div class="news-masonry-item__category">Event</div>
-              <div class="news-masonry-item__date">Oct 20, 2019</div>
-            </div>
-            <div class="news-masonry-item__title">Top 20 AIA Architecture Winners: Tropical Villa</div>
-            <div class="news-masonry-item__text">Lorem ipsum dolor sit amet, Console utralfo consectetur adipiscing elit. Phasellus faunt casibus est sed facilisis viverra.Praesent nec accumsan
-              nibh, eu gravity stepnha olni da metus. Curabitur quis sagittis nisl. Intem lectus ligula, varius quis...
-            </div>
-            <div class="news-masonry-item__continue">Continue
-              <span class="news-masonry-item__continue-icon icofont-rounded-right"></span>
-            </div>
-	       </div>
-        </a>
-	      <br>  
-  			<div class="col-lg-12" align="center">  
-  				<a class="btn btn-outline-danger" href="">Update</a>
-  				<a class="btn btn-danger" href="">Delete</a>
-  			</div>  
-      </div>
-      <div class="masonry-large-block__item col-12 col-sm-6 col-lg-4 col-xl-4">
-        <a class="news-masonry-item" href="<?php echo site_url('event/detailevent') ?>">
-          <div class="news-masonry-item__content">
-            <div class="news-masonry-item__header">
-              <div class="news-masonry-item__category">Event</div>
-              <div class="news-masonry-item__date">Oct 20, 2019</div>
-            </div>
-            <div class="news-masonry-item__title">Minimalist Trending in Modern Architecture 2019</div>
-            <div class="news-masonry-item__text">Lorem ipsum dolor sit amet, Console utralfo consectetur adipiscing elit. Phasellus faunt casibus est sed facilisis viverra.Praesent nec accumsan
-              nibh, eu gravity stepnha olni da metus. Curabitur quis sagittis nisl. Intem lectus ligula, varius quis...
-            </div>
-            <div class="news-masonry-item__continue">Continue
-              <span class="news-masonry-item__continue-icon icofont-rounded-right"></span>
-            </div>
-          </div>
-        </a>
-  			<br>  
-  			<div class="col-lg-12" align="center">  
-  				<a class="btn btn-outline-danger" href="">Update</a>
-  				<a class="btn btn-danger" href="">Delete</a>
-  			</div>   
-      </div>
-      <div class="masonry-large-block__item col-12 col-sm-6 col-lg-4 col-xl-4">
-        <a class="news-masonry-item" href="<?php echo site_url('event/detailevent') ?>">
-          <div class="news-masonry-item__content">
-            <div class="news-masonry-item__header">
-              <div class="news-masonry-item__category">Event</div>
-              <div class="news-masonry-item__date">Oct 20, 2019</div>
-            </div>
-            <div class="news-masonry-item__title">Minimalist Trending in Modern Architecture 2019</div>
-            <div class="news-masonry-item__text">Lorem ipsum dolor sit amet, Console utralfo consectetur adipiscing elit. Phasellus faunt casibus est sed facilisis viverra.Praesent nec accumsan
-              nibh, eu gravity stepnha olni da metus. Curabitur quis sagittis nisl. Intem lectus ligula, varius quis...
-            </div>
-            <div class="news-masonry-item__continue">Continue
-              <span class="news-masonry-item__continue-icon icofont-rounded-right"></span>
-            </div>
-          </div>
-        </a>
-  			<br>  
-  			<div class="col-lg-12" align="center">  
-  				<a class="btn btn-outline-danger" href="">Update</a>
-  				<a class="btn btn-danger" href="">Delete</a>
-  			</div>   
-      </div>	
-    </div>
+    <div class="row" id="load_data_event_member" style="height: 100% !important;"></div>
+    <div style="text-align: center">
+      <button class="btn btn-info" id="load_more_event_member" data-val="0">Load more
+      <img style="display: none;padding-left: 10px" id="loader_event_member" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
+      </button>
+    </div>	
   </div>
-  <div class="masonry-large-block__loader"><a href="">Lihat lebih banyak</a></div>
 </div> 

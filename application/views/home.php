@@ -24,13 +24,13 @@
         	<?php foreach ($dataevent as $vdataevent) : ?>
           <div class="masonry-large-block__item col-12 col-sm-6 col-lg-4 col-xl-6">
             <a class="news-masonry-item" href="<?php echo site_url('event/detailevent/'.$vdataevent['RunNo']) ?>">
-              <div class="news-masonry-item__content">
+              <div class="news-masonry-item__content" style="height: 269px;">
                 <div class="news-masonry-item__header">
                   <div class="news-masonry-item__category">Event</div>
                   <div class="news-masonry-item__date"><?= date('d/m/Y', strtotime($vdataevent['Tanggal']))?></div>
                 </div>
                 <div class="news-masonry-item__title"><?= $vdataevent['Judul']?></div>
-                <div class="news-masonry-item__text"><?= $vdataevent['Deskripsi']?></div>
+                <div class="news-masonry-item__text"><?= strlen($vdataevent['Deskripsi']) > 130 ? substr($vdataevent['Deskripsi'],0,130)."..." : $vdataevent['Deskripsi'];?></div>
                 <div class="news-masonry-item__continue">Continue
                   <span class="news-masonry-item__continue-icon icofont-rounded-right"></span>
                 </div>
@@ -79,7 +79,7 @@
 				<div class="team-block__slide swiper-slide">
 				  <div class="team-block__image-wrapper">
 				  <div style="height: 230px; width: 230px; overflow: hidden; ">
-						<img style="border-radius: 20px;" alt="" src="<?= base_url('assets/upload/member/'.$vdatamember['PhotoFile'])?>"/>
+						<img style="border-radius: 50%; height: 230px; width: 230px;" alt="" src="<?= base_url('assets/upload/member/'.$vdatamember['PhotoFile'])?>"/>
 					</div>
 					<div class="team-block__hover">
 					  <div class="socials">
@@ -93,7 +93,8 @@
 					</div>
 				  </div>
 				  <div class="team-block__person-name"><?= $vdatamember['Nama']?></div>
-				  <div class="team-block__person-role"><?= $vdatamember['Pekerjaan']?></div>
+				  <div class="team-block__person-role"><?= $vdatamember['Suku']?> | <?= $vdatamember['Negara']?></div>
+				  <div class="team-block__person-role"><?= $vdatamember['Pekerjaan']?> | <?= $vdatamember['Pendidikan']?></div>
 				</div>
 				<?php endforeach; ?>
 

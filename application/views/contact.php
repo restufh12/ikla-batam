@@ -27,10 +27,10 @@
             Kepulauan Riau 29425
           </p>
           <p>
-            <a href="tel:+00853462188">+0085 346 2188</a>
+            <a href="mailto:admin@iklabatam.com">admin@iklabatam.com</a>
           </p>
           <p>
-            <a href="mailto:info@iklabatam.com">info@iklabatam.com</a>
+            <a href="tel:+00853462188">+0085 346 2188</a>
           </p>
         </div>
       </div>

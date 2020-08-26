@@ -63,7 +63,7 @@ class Event extends CI_Controller {
 
             if($Lampiran!=""){
                 $config['upload_path']          = './assets/upload/event';
-                $config['allowed_types']        = 'gif|jpg|png|pdf|jpeg';
+                $config['allowed_types']        = '*';
                 $config['file_name']            = "event_".date('YmdHis')."_".preg_replace("/[^A-Za-z0-9?! ]/","", $this->session->userdata('Nama'));
                 $config['overwrite']            = true;
                 $config['max_size']             = 5120; // 5MB
@@ -191,7 +191,7 @@ class Event extends CI_Controller {
 
             if($Lampiran!=""){
                 $config['upload_path']          = './assets/upload/event';
-                $config['allowed_types']        = 'gif|jpg|png|pdf|jpeg';
+                $config['allowed_types']        = '*';
                 $config['file_name']            = "event_".date('YmdHis')."_".preg_replace("/[^A-Za-z0-9?! ]/","", $this->session->userdata('Nama'));
                 $config['overwrite']            = true;
                 $config['max_size']             = 5120; // 5MB
@@ -258,12 +258,21 @@ class Event extends CI_Controller {
         $data = array('dataEvent'=>$dataEvent);
         $mesg = $this->load->view('email/event-template', $data, true);
 
+        $Lampiran = $dataEvent->Lampiran;
+        if($Lampiran!="" AND $Lampiran!="default.png"){
+            $Attachment = base_url('assets/upload/event/'.$Lampiran);
+        }
+
         foreach ($arrEmailTo as $vEmail)
         {   
             $this->email->clear();
             $this->email->to($vEmail);
             $this->email->from($from);
             $this->email->subject('Ikla Batam Event Info');
+            
+            if($Lampiran!="" AND $Lampiran!="default.png"){
+                $this->email->attach($Attachment);
+            }
 
             $this->email->message($mesg);
             $this->email->send();
@@ -278,6 +287,12 @@ class Event extends CI_Controller {
         $from   = $this->config->item('smtp_user');
 
         $dataEvent = $this->eventmodel->get_detail($RunNo);
+
+        $Lampiran = $dataEvent->Lampiran;
+        if($Lampiran!="" AND $Lampiran!="default.png"){
+            $Attachment = base_url('assets/upload/event/'.$Lampiran);
+        }
+
         $data = array('dataEvent'=>$dataEvent);
         $mesg = $this->load->view('email/event-template', $data, true);
 
@@ -287,6 +302,9 @@ class Event extends CI_Controller {
             $this->email->to($vEmail);
             $this->email->from($from);
             $this->email->subject('Ikla Batam Event Info');
+            if($Lampiran!="" AND $Lampiran!="default.png"){
+                $this->email->attach($Attachment);
+            }
 
             $this->email->message($mesg);
             $result = $this->email->send();

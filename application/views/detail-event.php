@@ -23,6 +23,14 @@
         <div class="single-post__text">
           <?= $eventdetail->Deskripsi?>
         </div>
+
+        <br>
+        <div>
+          <?php 
+          if($eventdetail->Lampiran !="" AND $eventdetail->Lampiran !="default.png"):?>
+            <a style="color: #FFFFFF;border-bottom: 1px solid #FFFFFF;font-weight: bold;" href="<?= base_url()?>assets/upload/event/<?=$eventdetail->Lampiran?>" target="_blank">Download Lampiran</a>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </div>

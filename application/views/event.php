@@ -15,8 +15,8 @@
   <div class="container-fluid">
     <div id="load_data" class="row" style="height: 100% !important;"></div>
     <div style="text-align: center">
-      <button class="btn btn-info" id="load_more" data-val="0">Load more
-      <img style="display: none;padding-left: 10px" id="loader" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
+      <button class="btn contact-block__load" id="load_more" data-val="0"><i class="fas fa-chevron-circle-down"></i> Lihat Lebih Banyak
+        <img style="display: none;padding-left: 10px" id="loader" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
       </button>
     </div>
   </div>

@@ -41,7 +41,7 @@
         	<?php endforeach; ?>
         </div>
       </div>
-      <div class="masonry-large-block__loader"><a href="<?php echo site_url('event') ?>">Lihat Lebih Banyak</a></div>
+      <div class="masonry-large-block__loader"><a class="contact-block__submit" href="<?php echo site_url('event') ?>">Lihat Lebih Banyak</a></div>
     </div>
 </div>
 <div class="parallax-block">
@@ -66,9 +66,9 @@
   <div class="container">
 	<div class="team-block__body team-block__body team-block__body_bordered">
 	  <div class="heading-group heading-group heading-group_centered">
-		<div class="heading-group__subtitle"><a href="<?php echo site_url('member') ?>">Lihat Lebih Banyak</a></div>
+		<div class="heading-group__subtitle"><a class="contact-block__submit" href="<?php echo site_url('member') ?>">Lihat Lebih Banyak</a></div>
 		<div class="heading-group__title">ANGGOTA-ANGGOTA I.K.L.A</div>
-		<div class="heading-group__text">anggota - anggota IKLA aktif dalam mengikuti kegiatan bersama guna meningkatkan hubungan sosial dan persaudaraan yang solid antar perantau Luak Agam yang berada di Kota Batam.
+		<div class="heading-group__text">Anggota - anggota IKLA aktif dalam mengikuti kegiatan bersama guna meningkatkan hubungan sosial dan persaudaraan yang solid antar perantau Luak Agam yang berada di Kota Batam.
 		</div>
 	  </div>
 	  <div class="team-block__slider-wrapper">

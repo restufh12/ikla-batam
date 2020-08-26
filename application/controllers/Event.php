@@ -24,13 +24,19 @@ class Event extends CI_Controller {
 
     public function myevent() {
         $this->cek_login();
-        $data = array('container' => 'my-event');
+        $this->load->model('usermodel');
+        $memberToSendEmail = $this->usermodel->fetch_data_member_to_send_email();
+        $data = array('container' => 'my-event',
+                      'arrMemberToSendEmail' => $memberToSendEmail);
 		$this->load->view('templates/templates', $data);
     }
 
     public function buatevent() {
         $this->cek_login();
-        $data = array('container' => 'create-event');
+        $this->load->model('usermodel');
+        $memberToSendEmail = $this->usermodel->fetch_data_member_to_send_email();
+        $data = array('container' => 'create-event',
+                      'arrMemberToSendEmail' => $memberToSendEmail);
         $this->load->view('templates/templates', $data);
     }
 
@@ -51,12 +57,13 @@ class Event extends CI_Controller {
             $Tanggal   = $this->input->post('Tanggal');
             $Waktu     = $this->input->post('Waktu');
             $Deskripsi = $this->input->post('Deskripsi');
-            $MailTo    = $this->input->post('MailTo');
+            $MailTo    = ( $this->input->post('MailTo') == ""? "" : implode(", ", $this->input->post('MailTo')) );            
+
             $Lampiran  = $_FILES['Lampiran']; 
 
             if($Lampiran!=""){
                 $config['upload_path']          = './assets/upload/event';
-                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['allowed_types']        = 'gif|jpg|png|pdf|jpeg';
                 $config['file_name']            = "event_".date('YmdHis')."_".preg_replace("/[^A-Za-z0-9?! ]/","", $this->session->userdata('Nama'));
                 $config['overwrite']            = true;
                 $config['max_size']             = 5120; // 5MB
@@ -82,6 +89,9 @@ class Event extends CI_Controller {
             $insert = $this->eventmodel->insertevent("events", $data);
 
             if($insert){
+                $arrMailTo = ($this->input->post('MailTo')==""?array() : $this->input->post('MailTo'));
+                $RunNo = $this->db->insert_id();
+                $this->send_mail($arrMailTo, $RunNo);
                 $this->session->set_flashdata('msgnewevent', '1');
                 redirect('/event/myevent');
             } else {
@@ -141,9 +151,10 @@ class Event extends CI_Controller {
                    </div>
                 </a>
                 <br>  
-                <div class="col-lg-12" align="center">  
-                    <a class="btn btn-primary" href="'.site_url('event/edit_event/'.$row->RunNo).'">Update</a>
-                    <button type="button" class="btn btn-danger" onclick="fnDeleteEvent('.$row->RunNo.')">Delete</button>
+                <div class="col-lg-12" align="center">
+                    <button type="button" class="btn btn-success" onclick="fnSendMailTo('.$row->RunNo.')"><i class="far fa-paper-plane"></i> Mail To</button>
+                    <a class="btn btn-primary" href="'.site_url('event/edit_event/'.$row->RunNo).'"><i class="fas fa-edit"></i> Update</a>
+                    <button type="button" class="btn btn-danger" onclick="fnDeleteEvent('.$row->RunNo.')"><i class="fas fa-trash-alt"></i> Delete</button>
                 </div>  
             </div>';
         }
@@ -180,10 +191,18 @@ class Event extends CI_Controller {
 
             if($Lampiran!=""){
                 $config['upload_path']          = './assets/upload/event';
-                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['allowed_types']        = 'gif|jpg|png|pdf|jpeg';
                 $config['file_name']            = "event_".date('YmdHis')."_".preg_replace("/[^A-Za-z0-9?! ]/","", $this->session->userdata('Nama'));
                 $config['overwrite']            = true;
                 $config['max_size']             = 5120; // 5MB
+
+                // Delete Image
+                $LampiranOld = $this->input->post('LampiranOld');
+                if($LampiranOld!='' AND $LampiranOld!='default.png'){
+                    if (file_exists('assets/upload/event/'.$LampiranOld)) {
+                        unlink('assets/upload/event/'.$LampiranOld);
+                    }
+                }
 
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('Lampiran')) {
@@ -221,10 +240,62 @@ class Event extends CI_Controller {
 
         // Delete Image
         if($image_name!="default.png" AND $image_name!=""){
-            unlink('assets/upload/event/'.$image_name);
+            if (file_exists('assets/upload/event/'.$image_name)) {
+                unlink('assets/upload/event/'.$image_name);
+            }
         }
 
         $Result  = $this->eventmodel->delete_event($RunNo);
         echo $Result;
+    }
+
+    function send_mail($arrEmailTo, $RunNo){
+        $config = $this->load->config('email');
+        $from   = $this->config->item('smtp_user');
+
+        $dataEvent = $this->eventmodel->get_detail($RunNo);
+        
+        $data = array('dataEvent'=>$dataEvent);
+        $mesg = $this->load->view('email/event-template', $data, true);
+
+        foreach ($arrEmailTo as $vEmail)
+        {   
+            $this->email->clear();
+            $this->email->to($vEmail);
+            $this->email->from($from);
+            $this->email->subject('Ikla Batam Event Info');
+
+            $this->email->message($mesg);
+            $this->email->send();
+        }
+    }
+
+    function send_mail_direct(){
+        $arrEmailTo = $this->input->post('arrMailTo');
+        $RunNo      = $this->input->post('RunNo');
+
+        $config = $this->load->config('email');
+        $from   = $this->config->item('smtp_user');
+
+        $dataEvent = $this->eventmodel->get_detail($RunNo);
+        $data = array('dataEvent'=>$dataEvent);
+        $mesg = $this->load->view('email/event-template', $data, true);
+
+        foreach ($arrEmailTo as $vEmail)
+        {   
+            $this->email->clear();
+            $this->email->to($vEmail);
+            $this->email->from($from);
+            $this->email->subject('Ikla Batam Event Info');
+
+            $this->email->message($mesg);
+            $result = $this->email->send();
+        }
+
+        if($result){
+            echo "1";
+        } else {
+            echo "0";
+        }
     }
 }

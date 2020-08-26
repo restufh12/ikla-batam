@@ -340,7 +340,7 @@ main {
 }
 
 ::selection {
-  background-color: #cf1b1c;
+  background-color: #a47e59;
   color: #fff;
 }
 
@@ -1286,26 +1286,31 @@ contact-block
 .contact-block__input-text::-webkit-input-placeholder,
 .contact-block__input-textarea::-webkit-input-placeholder {
   color: #fff !important;
+  opacity: 0.5;
 }
 
 .contact-block__input-text:-moz-placeholder,
 .contact-block__input-textarea:-moz-placeholder {
   color: #fff !important;
+  opacity: 0.5;
 }
 
 .contact-block__input-text::-moz-placeholder,
 .contact-block__input-textarea::-moz-placeholder {
   color: #fff !important;
+  opacity: 0.5;
 }
 
 .contact-block__input-text:-ms-input-placeholder,
 .contact-block__input-textarea:-ms-input-placeholder {
   color: #fff !important;
+  opacity: 0.5;
 }
 
 .contact-block__input-text.placeholder,
 .contact-block__input-textarea.placeholder {
   color: #fff !important;
+  opacity: 0.5;
 }
 
 .contact-block__input-text:focus,
@@ -4563,11 +4568,27 @@ masonry-large-block
 
 .masonry-large-block__loader {
   font-size: 16px;
-  text-transform: uppercase;
+  text-transform: no;
   font-weight: 500;
   color: #fff;
   text-align: center;
   margin-top: 40px;
+}
+
+.contact-block__load {
+  color: #fff;
+  text-transform: none;
+  border: 2px solid #fff;
+  background: none;
+  padding: 10;
+  font-weight: 400;
+  margin-top: 98px;
+  transition: 0.3s;
+}
+
+.contact-block__load:hover {
+  color: #a47e59;
+  border: 1px solid #a47e59;
 }
 
 /*

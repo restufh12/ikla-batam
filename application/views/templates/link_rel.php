@@ -42,4 +42,6 @@
   <!-- Jquery FileInput -->
   <link href="<?= base_url()?>vendor/jquery-fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
   <link href="<?= base_url()?>vendor/jquery-fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
+  <!-- select2 -->
+  <link href="<?= base_url()?>vendor/select2/select2.min.css" media="all" rel="stylesheet" type="text/css"/>
 </head>

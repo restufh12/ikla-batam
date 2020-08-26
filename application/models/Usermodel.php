@@ -68,10 +68,32 @@ class Usermodel extends CI_Model{
   	}
 
   	public function fetch_data_member($page){
-        $offset = 3*$page;
-        $limit = 3;
+        $offset = 12*$page;
+        $limit = 12;
         $sql = "SELECT * FROM users WHERE VerifyYN='1' AND Level='Member' LIMIT $offset ,$limit";
         $result = $this->db->query($sql)->result();
         return $result;
     }
+
+    public function fetch_data_member_to_send_email(){
+    	$UserRunNo = $this->session->userdata('RunNo');
+        $hasil = $this->db->where(array('RunNo !=' => $UserRunNo, 'Level' => 'Member', 'VerifyYN' => '1', 'Email !=' => '1'))->get('users');
+	    if($hasil->num_rows() > 0){
+	        return $hasil->result_array();
+	    } else {
+	        return array();
+	    }
+    }
+
+    public function update_user($RunNo, $data){
+		$this->db->trans_start();
+		$this->db->where('RunNo', $RunNo);
+    	$this->db->update('users', $data);
+    	$this->db->trans_complete();
+		if ($this->db->trans_status() === FALSE){
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 }

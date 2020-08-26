@@ -1,4 +1,4 @@
-<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-contact.jpg); background-repeat: no-repeat; background-size: 100%;">
+<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-contact.jpg); background-repeat: no-repeat; background-size: 100%;margin-bottom:0px !important">
   <div class="container">
     <div class="heading-default__title">Contact Us</div>
     <ul class="heading-default__breadcrumbs">
@@ -35,18 +35,18 @@
         </div>
       </div>
       <div class="col-12 col-lg-7">
-        <div class="heading-smallest heading-smallest heading-smallest_has-offset heading-smallest heading-smallest_size_small">get in touch</div>
+        <div class="heading-smallest heading-smallest heading-smallest_has-offset heading-smallest heading-smallest_size_small">Hubungi Kami</div>
         <form class="contact-block__form">
           <div class="row">
             <div class="col-12 col-sm-6">
-              <input class="contact-block__input-text" placeholder="Name" type="text"/>
+              <input class="contact-block__input-text" id="contactNama" placeholder="Nama" type="text"/>
             </div>
             <div class="col-12 col-sm-6">
-              <input class="contact-block__input-text" placeholder="Subject" type="text"/>
+              <input class="contact-block__input-text" id="contactSubject" placeholder="Subject" type="text"/>
             </div>
             <div class="col-12">
-              <textarea class="contact-block__input-textarea" placeholder="Here goes your message"></textarea>
-              <button class="contact-block__submit">Send Message
+              <textarea class="contact-block__input-textarea" placeholder="Pesan" id="contactPesan"></textarea>
+              <button type="button" class="contact-block__submit" onclick="fnKirimPesanKeAdmin()">Kirim Pesan
                 <span class="contact-block__submit-icon icofont-caret-right"></span>
               </button>
             </div>

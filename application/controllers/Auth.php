@@ -70,16 +70,8 @@ class Auth extends CI_Controller {
     {
         $this->form_validation->set_rules('Nama', 'Nama', 'required');
         $this->form_validation->set_rules('JenisKelamin', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('Alamat', 'Alamat', 'required');
-        $this->form_validation->set_rules('Pekerjaan', 'Pekerjaan', 'required');
-        $this->form_validation->set_rules('AlamatPekerjaan', 'Alamat Pekerjaan', 'required');
-        $this->form_validation->set_rules('Suku', 'Suku', 'required');
         $this->form_validation->set_rules('NoHP', 'NoHP', 'required');
         $this->form_validation->set_rules('Email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('Negara', 'Negara', 'required');
-        $this->form_validation->set_rules('GolonganDarah', 'Golongan Darah', 'required');
-        $this->form_validation->set_rules('Pendidikan', 'Pendidikan', 'required');
-        $this->form_validation->set_rules('Hobi', 'Hobi', 'required');
         $this->form_validation->set_rules('Username', 'Username', 'required|is_unique[users.Username]');
         $this->form_validation->set_rules('Password', 'Password', 'required|trim');
 
@@ -87,6 +79,53 @@ class Auth extends CI_Controller {
             $errors = $this->form_validation->error_array();
             $this->session->set_flashdata('errors', $errors);
             $this->session->set_flashdata('input', $this->input->post());
+
+            $Nama            = $this->input->post('Nama');
+            $JenisKelamin    = $this->input->post('JenisKelamin');
+            $Alamat          = $this->input->post('Alamat');
+            $Pekerjaan       = $this->input->post('Pekerjaan');
+            $AlamatPekerjaan = $this->input->post('AlamatPekerjaan');
+            $Suku            = $this->input->post('Suku');
+            $NoHP            = $this->input->post('NoHP');
+            $Email           = $this->input->post('Email');
+            $Negara          = $this->input->post('Negara');
+            $GolonganDarah   = $this->input->post('GolonganDarah');
+            $Pendidikan      = $this->input->post('Pendidikan');
+            $Hobi            = $this->input->post('Hobi');
+            $NamaIstri       = $this->input->post('NamaIstri');
+            $NamaAnak1       = $this->input->post('NamaAnak1');
+            $NamaAnak2       = $this->input->post('NamaAnak2');
+            $NamaAnak3       = $this->input->post('NamaAnak3');
+            $NamaAnak4       = $this->input->post('NamaAnak4');
+            $NamaAnak5       = $this->input->post('NamaAnak5');
+            $NamaAnak6       = $this->input->post('NamaAnak6');
+            $Username        = $this->input->post('Username');
+
+            $data = [
+                'Nama'            => $Nama,
+                'JenisKelamin'    => $JenisKelamin,
+                'Alamat'          => $Alamat,
+                'Pekerjaan'       => $Pekerjaan,
+                'AlamatPekerjaan' => $AlamatPekerjaan,
+                'Suku'            => $Suku,
+                'NoHP'            => $NoHP,
+                'Email'           => $Email,
+                'Negara'          => $Negara,
+                'GolonganDarah'   => $GolonganDarah,
+                'Pendidikan'      => $Pendidikan,
+                'Hobi'            => $Hobi,
+                'NamaIstri'       => $NamaIstri,
+                'NamaAnak1'       => $NamaAnak1,
+                'NamaAnak2'       => $NamaAnak2,
+                'NamaAnak3'       => $NamaAnak3,
+                'NamaAnak4'       => $NamaAnak4,
+                'NamaAnak5'       => $NamaAnak5,
+                'NamaAnak6'       => $NamaAnak6,
+                'Username'        => $Username
+            ];
+
+            $this->session->set_flashdata($data);
+
             redirect('auth/register');
         } else {
             
@@ -115,7 +154,7 @@ class Auth extends CI_Controller {
 
             if($PhotoFile!=""){
                 $config['upload_path']          = './assets/upload/member';
-                $config['allowed_types']        = 'gif|jpg|png';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
                 $config['file_name']            = date('YmdHis')."_".$Username;
                 $config['overwrite']            = true;
                 $config['max_size']             = 1024; // 1MB

@@ -30,7 +30,15 @@ class Eventmodel extends CI_Model{
 	}
 
 	public function get_detail($RunNo){
-		$hasil = $this->db->where('RunNo', $RunNo)->limit(1)->get('events');
+
+		$this->db->select('*');
+		$this->db->from('events');
+		$this->db->join('users', 'events.UserRunNo = users.RunNo');
+	    $this->db->where('events.RunNo',$RunNo);
+	    $this->db->limit(1);
+	    $hasil = $this->db->get();
+
+
 	    if($hasil->num_rows() > 0){
 	        return $hasil->row();
 	    } else {
@@ -39,8 +47,8 @@ class Eventmodel extends CI_Model{
 	}
 
 	public function fetch_data_event($page){
-        $offset = 4*$page;
-        $limit = 4;
+        $offset = 9*$page;
+        $limit = 9;
         $sql = "SELECT * FROM events ORDER BY RunNo DESC LIMIT $offset ,$limit";
         $result = $this->db->query($sql)->result();
         return $result;
@@ -48,9 +56,15 @@ class Eventmodel extends CI_Model{
 
     public function fetch_data_event_member($page){
     	$UserRunNo = $this->session->userdata('RunNo');
+    	$Level = $this->session->userdata('Level');
+    	if($Level=="Admin"){
+    		$WhereFilter = "";
+    	} else {
+    		$WhereFilter = " AND UserRunNo = '$UserRunNo'";
+    	}
     	$offset = 3*$page;
         $limit = 3;
-        $sql = "SELECT * FROM events WHERE UserRunNo = '$UserRunNo' ORDER BY RunNo DESC LIMIT $offset ,$limit";
+        $sql = "SELECT * FROM events WHERE RunNo <> '' $WhereFilter ORDER BY RunNo DESC LIMIT $offset ,$limit";
         $result = $this->db->query($sql)->result();
         return $result;
     }

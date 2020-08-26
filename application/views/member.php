@@ -15,7 +15,7 @@
   <div class="container">
     <div class="team-block__body team-block__body" style="padding-bottom: 10px;">
       <div class="heading-group heading-group heading-group_centered">
-        <div class="heading-group__text">anggota - anggota IKLA aktif dalam mengikuti kegiatan bersama guna meningkatkan hubungan sosial dan persaudaraan yang solid antar perantau Luak Agam yang berada di Kota Batam.
+        <div class="heading-group__text">Anggota - anggota IKLA aktif dalam mengikuti kegiatan bersama guna meningkatkan hubungan sosial dan persaudaraan yang solid antar perantau Luak Agam yang berada di Kota Batam.
         </div>
       </div>
 
@@ -23,8 +23,8 @@
         <div class="container-fluid">
           <div id="load_data_member" class="row" style="height: 100% !important;text-align: center;"></div>
           <div style="text-align: center;margin-top: 30px;">
-            <button class="btn btn-info" id="load_more_member" data-val="0">Load More
-            <img style="display: none;padding-left: 10px;" id="loader_member" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
+            <button class="btn contact-block__load" id="load_more_member" data-val="0"><i class="fas fa-chevron-circle-down"></i> Lihat Lebih Banyak
+                <img style="display: none;padding-left: 10px;" id="loader_member" src="<?php echo base_url()?>assets/img/loadmore.gif"> 
             </button>
           </div>
         </div>

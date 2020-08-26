@@ -50,7 +50,8 @@
 <script src="<?= base_url()?>vendor/jquery-fileinput/js/locales/es.js" type="text/javascript"></script>
 <script src="<?= base_url()?>vendor/jquery-fileinput/themes/fas/theme.js" type="text/javascript"></script>
 <script src="<?= base_url()?>vendor/jquery-fileinput/themes/explorer-fas/theme.js" type="text/javascript"></script>
-
+<!-- select2 -->
+<script src="<?= base_url()?>vendor/select2/select2.min.js" type="text/javascript"></script>
 
 
 
@@ -59,9 +60,13 @@ if (typeof $ == 'undefined') { var $ = jQuery; }
 $(document).ready(function() {
 	const thisMenu = "<?=$container?>";
 
+	$('#select2MailTo').select2({
+		dropdownAutoWidth : true,
+    width: '100%'
+	});
+
   if(thisMenu=="create-event"){
   	$("#Lampiran").fileinput({
-  			initialPreviewAsData: true,
         showUpload: false,
         dropZoneEnabled: true,
         maxFileCount: 1,
@@ -158,6 +163,30 @@ $(document).ready(function() {
 		// ALERT UPDATE EVENT -------------------------------------------------------------------------------
 	}
 
+	// ALERT UPDATE MEMBER -------------------------------------------------------------------------------
+  let msgupdatemember = "<?= $this->session->flashdata('msgupdatemember')?>";
+	if(msgupdatemember=="1"){
+	  $.toast({
+	      heading: 'Success',
+	      text: 'Update Profile Berhasil',
+	      showHideTransition: 'slide',
+	      icon: 'success',
+	      position: 'bottom-right',
+	      hideAfter: 7000
+	  });
+	} else if(msgupdatemember=="0"){
+		$.toast({
+      heading: 'Error',
+      text: "Update Profile Gagal",
+      showHideTransition: 'slide',
+      icon: 'error',
+      position: 'top-right',
+      hideAfter: 3000
+  	});
+	}
+	// --------------------------------------------------------------------------------------------------
+
+
 	// Datatables Member
 	$.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
 	{
@@ -201,7 +230,7 @@ $(document).ready(function() {
 		      $(row).find('td:eq(4)').html('Verified');
 		      $(row).find('td:eq(4)').css('color', '#008000');
 		    } else {
-		      $(row).find('td:eq(4)').html('Not Verified');
+		      $(row).find('td:eq(4)').html('Unverified');
 		      $(row).find('td:eq(4)').css('color', '#ff0000');	
 		    }
 
@@ -398,7 +427,7 @@ $(document).ready(function() {
         		if(response==""){
         			$("#load_more_event_member").hide();
         		}
-            $("#load_data_event_member").append(response);
+            $(response).hide().appendTo("#load_data_event_member").slideDown(500);
             $("#loader_event_member").hide();
             $('#load_more_event_member').data('val', ($('#load_more_event_member').data('val')+1));
         });
@@ -411,8 +440,6 @@ $(document).ready(function() {
         getEventsMember(page);
     });
   }
-
-  console.log(thisMenu)
 
 });
 
@@ -482,6 +509,105 @@ function fnDeleteEvent(RunNo){
 	            }
 	        }
 	    }
+	});
+}
+
+function fnSendMailTo(RunNo){
+	$("#ModalRunNoEventValue").val(RunNo);
+	$("#modalSendMailTo").appendTo("body").modal('show');
+}
+
+
+function fnSendingEmail(){
+	let RunNo = $("#ModalRunNoEventValue").val();
+	let arrMailTo = $("#select2MailTo").val();
+	if(arrMailTo==null || arrMailTo==""){
+		alert("Silahkan pilih penerima."); return;
+	}
+	$.ajax({
+		url  : "<?php echo base_url().'event/send_mail_direct'?>",
+		type : "POST",
+		data : {
+			RunNo : RunNo,
+			arrMailTo : arrMailTo
+		},
+		success : function(data){
+			$("#modalSendMailTo").modal('hide');
+			if(data=="1"){
+				$.toast({
+			      heading: 'Success',
+			      text: 'Email Berhasil Terkirim',
+			      showHideTransition: 'slide',
+			      icon: 'success',
+			      position: 'bottom-right',
+			      hideAfter: 5000
+			  });
+			} else {
+				$.toast({
+		      heading: 'Error',
+		      text: "Email Gagal Terkirim",
+		      showHideTransition: 'slide',
+		      icon: 'error',
+		      position: 'bottom-right',
+		      hideAfter: 3000
+		  	});
+			}
+		}
+
+	});
+}
+
+function fnKirimPesanKeAdmin(){
+	let Nama    = $("#contactNama").val();
+	let Subject = $("#contactSubject").val();
+	let Pesan   = $("#contactPesan").val();
+
+	if(Nama==""){
+		$("#contactNama").focus();
+		return false;
+	}
+	if(Subject==""){
+		$("#contactSubject").focus();
+		return false;
+	}
+	if(Pesan==""){
+		$("#contactPesan").focus();
+		return false;
+	}
+
+	$.ajax({
+		url  : "<?php echo base_url().'about/send_mail_to_admin'?>",
+		type : "POST",
+		data : {
+			Nama    : Nama,
+			Subject : Subject,
+			Pesan   : Pesan
+		},
+		success : function(data){
+			$("#contactNama").val("");
+			$("#contactSubject").val("");
+			$("#contactPesan").val("");
+			if(data=="1"){
+				$.toast({
+			      heading: 'Success',
+			      text: 'Pesan Terkirim',
+			      showHideTransition: 'slide',
+			      icon: 'success',
+			      position: 'bottom-right',
+			      hideAfter: 5000
+			  });
+			} else {
+				$.toast({
+			      heading: 'Error',
+			      text: "Gagal Kirim Pesan",
+			      showHideTransition: 'slide',
+			      icon: 'error',
+			      position: 'bottom-right',
+			      hideAfter: 3000
+			  	});
+			}
+		}
+
 	});
 }
 </script>

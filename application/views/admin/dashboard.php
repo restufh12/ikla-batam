@@ -6,7 +6,7 @@
 		display: none;
 	}
 </style>
-<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/home-banner5.jpg)">
+<div class="heading-default heading-default heading-default_context_default" style="background-image: url(<?= base_url()?>assets/img/banner-member.jpg); background-repeat: no-repeat; background-size: 100%;">
   <div class="container">
 	<div class="heading-default__title">Dashboard Member</div>
 	<ul class="heading-default__breadcrumbs">
@@ -25,12 +25,12 @@
       	<table id="member-listing" class="table progress-table" style="width:100%">
             <thead>
                 <tr>
-                    <th>NO</th>
-                    <th>NAMA</th>
-                    <th>USERNAME</th>
-                    <th>EMAIL</th>
-                    <th>STATUS</th>
-                    <th>AKSI</th>
+                    <th><b>NO</b></th>
+                    <th><b>NAMA</b></th>
+                    <th><b>USERNAME</b></th>
+                    <th><b>EMAIL</b></th>
+                    <th><b>STATUS</b></th>
+                    <th><b>AKSI</b></th>
                 </tr>
             </thead>
         </table>

@@ -14,7 +14,7 @@ class About extends CI_Controller {
 
         $this->email->to('admin@iklabatam.com');
         $this->email->from($from, $this->input->post('Nama'));
-        $this->email->subject($this->input->post('Subject'));
+        $this->email->subject($this->input->post('Email'));
 
         $this->email->message($this->input->post('Pesan'));
         $result = $this->email->send();

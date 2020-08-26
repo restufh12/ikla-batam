@@ -42,7 +42,7 @@
               <input class="contact-block__input-text" id="contactNama" placeholder="Nama" type="text"/>
             </div>
             <div class="col-12 col-sm-6">
-              <input class="contact-block__input-text" id="contactSubject" placeholder="Subject" type="text"/>
+              <input class="contact-block__input-text" id="contactEmail" placeholder="Email" type="text"/>
             </div>
             <div class="col-12">
               <textarea class="contact-block__input-textarea" placeholder="Pesan" id="contactPesan"></textarea>

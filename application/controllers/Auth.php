@@ -195,6 +195,120 @@ class Auth extends CI_Controller {
             $insert = $this->authmodel->register("users", $data);
 
             if($insert){
+
+                $config = $this->load->config('email');
+                $from   = $this->config->item('smtp_user');
+
+                $emailcontent = "   <table>
+                                        <tr>
+                                            <td>Nama</td>
+                                            <td>:</td>
+                                            <td>".$Nama."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Kelamin</td>
+                                            <td>:</td>
+                                            <td>".$JenisKelamin."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alamat</td>
+                                            <td>:</td>
+                                            <td>".$Alamat."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pekerjaan</td>
+                                            <td>:</td>
+                                            <td>".$Pekerjaan."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Alamat Pekerjaan</td>
+                                            <td>:</td>
+                                            <td>".$AlamatPekerjaan."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Suku</td>
+                                            <td>:</td>
+                                            <td>".$Suku."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NoHP</td>
+                                            <td>:</td>
+                                            <td>".$NoHP."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>:</td>
+                                            <td>".$Email."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Negara</td>
+                                            <td>:</td>
+                                            <td>".$Negara."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Golongan Darah</td>
+                                            <td>:</td>
+                                            <td>".$GolonganDarah."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pendidikan</td>
+                                            <td>:</td>
+                                            <td>".$Pendidikan."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hobi</td>
+                                            <td>:</td>
+                                            <td>".$Hobi."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Istri</td>
+                                            <td>:</td>
+                                            <td>".$NamaIstri."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 1</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak1."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 2</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak2."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 3</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak3."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 4</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak4."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 5</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak5."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nama Anak 6</td>
+                                            <td>:</td>
+                                            <td>".$NamaAnak6."</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Username</td>
+                                            <td>:</td>
+                                            <td>".$Username."</td>
+                                        </tr>
+                                    </table>";
+
+                $this->email->to('admin@iklabatam.com');
+                $this->email->from($from, $Nama);
+                $this->email->subject("Registrasi User Baru - ".$Nama);
+
+                $this->email->message($emailcontent);
+                $this->email->send();
+
                 $this->session->set_flashdata('msgnewmember', 'Registrasi Sukses');
                 redirect('/');
             } else {

@@ -559,15 +559,15 @@ function fnSendingEmail(){
 
 function fnKirimPesanKeAdmin(){
 	let Nama    = $("#contactNama").val();
-	let Subject = $("#contactSubject").val();
+	let Email   = $("#contactEmail").val();
 	let Pesan   = $("#contactPesan").val();
 
 	if(Nama==""){
 		$("#contactNama").focus();
 		return false;
 	}
-	if(Subject==""){
-		$("#contactSubject").focus();
+	if(Email==""){
+		$("#contactEmail").focus();
 		return false;
 	}
 	if(Pesan==""){
@@ -580,7 +580,7 @@ function fnKirimPesanKeAdmin(){
 		type : "POST",
 		data : {
 			Nama    : Nama,
-			Subject : Subject,
+			Email   : Email,
 			Pesan   : Pesan
 		},
 		success : function(data){
